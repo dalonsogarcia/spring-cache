@@ -7,12 +7,14 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCache;
 import org.springframework.cache.guava.GuavaCache;
 import org.springframework.cache.interceptor.CacheResolver;
+import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.tommylii.testing.spring.cache.CacheTestMain;
 import org.tommylii.testing.spring.cache.resolver.TestCacheResolver;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -30,7 +32,13 @@ public class CacheTestConfig extends CachingConfigurerSupport {
     @Bean(name = TEST_CACHE_RESOLVER)
     @Override
     public CacheResolver cacheResolver(){
-        return new TestCacheResolver(getNormalCache(),getTtlCache());
+        return new TestCacheResolver(getCacheManager(getNormalCache(),getTtlCache()));
+    }
+
+    private SimpleCacheManager getCacheManager(Cache normalCache, Cache ttlCache) {
+        SimpleCacheManager cacheManager = new SimpleCacheManager();
+        cacheManager.setCaches(Arrays.asList(normalCache, ttlCache));
+        return cacheManager;
     }
 
     @Bean

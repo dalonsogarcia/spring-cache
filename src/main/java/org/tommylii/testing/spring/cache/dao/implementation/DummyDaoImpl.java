@@ -1,11 +1,9 @@
 package org.tommylii.testing.spring.cache.dao.implementation;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.tommylii.testing.spring.cache.config.CacheTestConfig;
 import org.tommylii.testing.spring.cache.dao.DummyDao;
 import org.tommylii.testing.spring.cache.enums.CacheType;
 
@@ -14,7 +12,6 @@ import org.tommylii.testing.spring.cache.enums.CacheType;
  */
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-@CacheConfig(cacheNames = {CacheTestConfig.NORMAL_CACHE,CacheTestConfig.TTL_CACHE})
 public class DummyDaoImpl implements DummyDao{
 
     private final CacheType cacheType;
