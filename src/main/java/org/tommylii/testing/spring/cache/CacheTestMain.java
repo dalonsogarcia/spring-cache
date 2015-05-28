@@ -29,6 +29,7 @@ public class CacheTestMain {
     private void run() throws InterruptedException {
         final DummyDao dummyDaoNormalCache = daoManager.getDummyDao(CacheType.NORMAL);
         long call1 = dummyDaoNormalCache.getSomething(DUMMY_KEY);
+        Thread.sleep(500);
         long call2 = dummyDaoNormalCache.getSomething(DUMMY_KEY);
         Assert.isTrue(call1 == call2, "Normal cache calls were not cached");
         final DummyDao dumnmyDaoTtlCache = daoManager.getDummyDao(CacheType.TTL);
